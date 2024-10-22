@@ -1,0 +1,57 @@
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-container .form-control {
+            border-radius: 0.25rem;
+        }
+        .form-container .btn {
+            border-radius: 0.25rem;
+        }
+    </style>
+{% extends "admin/base1.html" %}
+
+{% block content %}
+
+    <div class="container form-container mt-5">
+        <h2 class="mb-4">Update Product</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'ecommerce_admin_app:update_product' p.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="product_name">Product Name</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Enter product name"  value="{{ p.product_name }}">
+            </div>
+            <div class="form-group">
+                <label for="product_description">Product Description</label>
+                <textarea class="form-control" id="product_description" name="product_description" rows="4" placeholder="Enter product description"  >{{ p.product_description }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="product_price">Product Price</label>
+                <input type="number" class="form-control" id="product_price" name="product_price" placeholder="Enter product price"  value="{{ p.product_price }}">
+            </div>
+            <div class="form-group">
+                <label for="product_img">Product Image</label>
+                <input type="file" class="form-control-file" id="product_img" name="product_img"  value="{{ p.product_img }}">
+            </div>
+          <div class="form-group">
+                <label for="product_category">Product Category</label>
+                <select class="form-control" id="product_category" name="product_category">
+                    <option value="">Select category</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id == p.product_category.id %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Product</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,47 @@
+
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+
+<style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-container .form-control {
+            border-radius: 0.25rem;
+        }
+        .form-container .btn {
+            border-radius: 0.25rem;
+        }
+    </style>
+
+
+
+{% extends "admin/base1.html" %}
+
+{% block content %}
+
+  <div class="container form-container mt-5">
+        <h2 class="mb-4" style="text-align:center;">Add Category</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'ecommerce_admin_app:add_category' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="category_name">Category Name</label>
+                <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter Category name" required>
+            </div>
+             <button type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+  </div>
+
+  <div class="container mt-4">
+        <h3>Categories</h3>
+        <ul>
+            {% for category in categories %}
+                <li>{{ category.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

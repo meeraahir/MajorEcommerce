@@ -1,0 +1,82 @@
+{% extends 'admin/base2.html' %}
+
+{% block content %}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa; /* Light background color */
+        margin-top: 65px;
+        color: #343a40; /* Dark text color */
+    }
+
+    .sidebar {
+        height: 100vh;
+        background-color: #ffffff; /* Sidebar background color white */
+        padding-top: 20px;
+        border-right: 1px solid #ddd; /* Optional: Add a border to separate the sidebar */
+    }
+    .sidebar a {
+        padding: 10px 15px;
+        text-decoration: none;
+        font-size: 18px;
+        color: #343a40; /* Dark text color */
+        display: block;
+    }
+    .sidebar a:hover {
+        background-color: #e9ecef;
+        color: #343a40; /* Dark text color */
+    }
+    .content {
+        margin-left: 250px;
+        padding: 20px;
+        background-color: #f8f9fa; /* Match the body's background color */
+    }
+    .card {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="d-flex">
+    <div class="sidebar">
+        <a href="#">Dashboard</a>
+        <a href="{% url 'ecommerce_admin_app:add_category' %}">Add Category</a>
+        <a href="{% url 'ecommerce_admin_app:add_product' %}">Add Product</a>
+        <a href="{% url 'ecommerce_admin_app:view_product' %}">View Product Details</a>
+        <a href="{% url 'ecommerce_admin_app:order_received' %}">Orders</a>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <h2 class="mb-4" style="margin-top:20px; text-align:center;">Admin Dashboard</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Users</h5>
+                            <p class="card-text">Number of Users: {{ total_user }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Product</h5>
+                            <p class="card-text">Number of Product: {{ total_product }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-white bg-warning">
+                        <div class="card-body">
+                            <h5 class="card-title">Orders</h5>
+                            <p class="card-text">Total Orders: {{ total_orders }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more content here -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "admin/base1.html" %}
+
+{% block content %}
+<h1 style="text-align:center">Order Details</h1>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f4f4f4;
+        color: #333;
+    }
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    .no-orders {
+        text-align: center;
+        font-style: italic;
+    }
+</style>
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Created At</th>
+            <th>Action</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in order_details %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.username }}</td>
+            <td>{{ order.product.product_name }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.final_total_price }}</td>
+            <td>{{ order.created_at }}</td>
+            <td>
+                <form action="{% url 'ecommerce_admin_app:update_order_status' order.id %}" method="post">
+                    {% csrf_token %}
+                    <select name="status">
+                        <option value="Pending" {% if order.placeorder.status == "Pending" %}selected{% endif %}>Pending</option>
+                        <option value="Shipped" {% if order.placeorder.status == "Shipped" %}selected{% endif %}>Shipped</option>
+                        <option value="Delivered" {% if order.placeorder.status == "Delivered" %}selected{% endif %}>Delivered</option>
+                        <option value="Cancelled" {% if order.placeorder.status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td>{{ order.placeorder.status }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="8" class="no-orders">No orders found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

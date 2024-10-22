@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Dashboard{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            color: #343a40;
+        }
+
+        .sidebar {
+            height: 100vh;
+            background-color: #ffffff;
+            padding-top: 20px;
+            border-right: 1px solid #ddd;
+            position: fixed; /* Fix sidebar on the left side */
+            width: 250px; /* Fixed width for the sidebar */
+            top: 0;
+            bottom: 0;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #343a40;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #e9ecef;
+            color: #343a40;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <a href="{% url 'ecommerce_admin_app:admin_dashboard' %}">Dashboard</a>
+        <a href="#">Users</a>
+        <a href="{% url 'ecommerce_admin_app:add_category' %}">Add category</a>
+        <a href="{% url 'ecommerce_admin_app:add_product' %}">Add Product</a>
+        <a href="{% url 'ecommerce_admin_app:view_product' %}">View Product Details</a>
+        <a href="{% url 'ecommerce_admin_app:order_received' %}">Orders</a>
+    </div>
+    <div class="content">
+        {% block content %}
+        <!-- Page specific content will be inserted here -->
+        {% endblock %}
+    </div>
+</body>
+</html>

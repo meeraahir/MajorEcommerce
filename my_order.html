@@ -1,0 +1,47 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+
+<br><br>
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">My Orders</h1>
+
+    {% for date, orders_on_date in orders_by_date.items %}
+    <h3 class="mb-3">{{ date }}</h3>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Order ID</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders_on_date %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td><img src="{{ order.product.product_img.url }}" alt="{{ order.product.product_name }}" width="100"></td>
+                    <td>{{ order.product.product_name }}</td>
+                    <td>${{ order.product.product_price }}</td>
+                    <td>{{ order.quantity }}</td>
+                    <td>${{ order.final_total_price }}</td>
+                    <td>{{ order.placeorder.status }}</td>
+                    <td>{{ order.created_at|date:"M d, Y h:i A" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No orders found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
